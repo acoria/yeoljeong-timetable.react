@@ -5,6 +5,14 @@ import { IPlannedBlockAnalyzer } from "./IPlannedBlockAnalyzer";
 import { TimeConverter } from "./TimeConverter";
 
 class PlannedBlockAnalyzerDefault implements IPlannedBlockAnalyzer {
+  findPositionInInterval(timeIntervals: Time[], date: Date): number {
+    return timeIntervals.findIndex(
+      (timeInterval) =>
+        timeInterval[0] === date.getHours() &&
+        timeInterval[1] === date.getMinutes()
+    );
+  }
+
   getTimeIntervals(
     plannedBlocks: IPlannedBlock[],
     timelineIntervalInMinutes: number

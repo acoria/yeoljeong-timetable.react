@@ -8,6 +8,7 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
   const viewModel = useTimeTableViewModel(props);
 
   const timelineColumn = props.showTimeline ? 1 : 0;
+  const blockStartRowOffset = 2;
   const weekdayGridColumn = (index: number) =>
     `${index * 2 + 1 + timelineColumn}/ ${index * 2 + 3 + timelineColumn}`;
 
@@ -42,8 +43,8 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
         startTime={block.startTime}
         endTime={block.endTime}
         gridColumnStart={block.positionInWeek + timelineColumn}
-        gridRowEnd={6}
-        gridRowStart={2}
+        gridRowStart={block.startIntervalIndex + blockStartRowOffset}
+        gridRowEnd={block.endIntervalIndex + blockStartRowOffset}
         title={block.title}
         ageInfo={block.ageInfo}
         description={block.description}

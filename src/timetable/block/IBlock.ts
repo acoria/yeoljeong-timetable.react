@@ -4,4 +4,6 @@ export interface IBlock extends IBlockShared {
   startTime: string;
   endTime: string;
   positionInWeek: number;
+  startIntervalIndex: number;
+  endIntervalIndex: number;
 }
