@@ -1,0 +1,42 @@
+.timetable {
+    margin: 5rem;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 5% 1% auto 1% auto 1% auto;
+    column-gap: 1rem;
+}
+
+.leftTop {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.block {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.blockTitle {
+    font-size: large;
+}
+
+.blockAgeInfo {
+    font-style: italic;
+    margin: 0;
+}
+
+.blockDescription {
+    margin: 0;
+}
+
+.day {
+    font-size: medium;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.timeline {
+    text-align: center;
+}
