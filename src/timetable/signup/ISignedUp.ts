@@ -1,4 +1,4 @@
 export interface ISignedUp {
-  signedUp: boolean;
-  signedUpParticipants: number;
+  signedUp?: boolean;
+  signedUpParticipants?: number;
 }
