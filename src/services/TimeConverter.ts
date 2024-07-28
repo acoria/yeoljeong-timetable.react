@@ -1,3 +1,5 @@
+import { Time } from "../types/Time";
+
 class TimeConverterDefault {
   findEarliestTime(dates: Date[]): Date {
     return this.sortTimes(dates)[0];
@@ -18,8 +20,12 @@ class TimeConverterDefault {
     return new Date(oldDate.getTime() + minutes * 60000);
   }
 
-  getTimeAsString(date: Date): string {
+  getDateTimeAsString(date: Date): string {
     return `${date.getHours()}:${date.getMinutes()}`;
+  }
+
+  getTimeAsString(time: Time): string {
+    return `${time[0]}:${time[1] === 0 ? "00" : time[1]}`;
   }
 
   private sortTimes(dates: Date[]): Date[] {
