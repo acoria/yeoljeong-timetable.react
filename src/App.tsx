@@ -11,6 +11,7 @@ function App() {
       weekday: Weekday.FRIDAY,
       startTime: new Date(2024, 11, 21, 18, 45),
       endTime: new Date(2024, 11, 21, 19, 45),
+      ageInfo: "ab 13 Jahren",
     },
     {
       title: "Training für Anfänger",
@@ -18,6 +19,7 @@ function App() {
       weekday: Weekday.MONDAY,
       startTime: new Date(2024, 11, 17, 17, 30),
       endTime: new Date(2024, 11, 17, 18, 30),
+      ageInfo: "ab 13 Jahren",
     },
     {
       title: "Training für Fortgeschrittene",
@@ -25,6 +27,14 @@ function App() {
       weekday: Weekday.WEDNESDAY,
       startTime: new Date(2024, 11, 19, 20),
       endTime: new Date(2024, 11, 19, 21),
+    },
+    {
+      title: "Training für Kinder",
+      color: "#893F61",
+      weekday: Weekday.WEDNESDAY,
+      startTime: new Date(2024, 11, 19, 20),
+      endTime: new Date(2024, 11, 19, 21),
+      ageInfo: "7 - 12 Jahre",
     },
     // {
     //   title: "Training ab 16 Uhr",

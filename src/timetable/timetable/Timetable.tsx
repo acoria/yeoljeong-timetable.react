@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
-import { Weekday } from "../Weekday";
 import { ITimetableProps } from "./ITimetableProps";
 import styles from "./Timetable.module.scss";
-import { PlannedBlockAnalyzer } from "../../services/PlannedBlockAnalyzer";
 import { useTimeTableViewModel } from "./useTimetableViewModel";
+import { Block } from "../block/Block";
+import { TimeConverter } from "../../services/TimeConverter";
 
 export const Timetable: React.FC<ITimetableProps> = (props) => {
   const viewModel = useTimeTableViewModel(props);
@@ -16,7 +16,7 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
     props.showTimeline ? "5%" : ""
   } ${viewModel.plannedWeekdays.map((_) => "1% auto").join(" ")}`;
 
-  const timeline = (): ReactElement[] => {
+  const timeline = (): ReactElement | ReactElement[] => {
     return viewModel.timeline.map((time, index) => (
       <div className={styles.timeline} style={{ gridRowStart: index + 2 }}>
         {time}
@@ -24,7 +24,7 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
     ));
   };
 
-  const weekdays = (): ReactElement[] =>
+  const weekdays = (): ReactElement | ReactElement[] =>
     viewModel.plannedWeekdays.map((weekday, index) => (
       <div
         className={styles.day}
@@ -35,26 +35,24 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
         {weekday}
       </div>
     ));
-    
-  const blocks = (): ReactElement => {
+
+  const blocks = (): ReactElement | ReactElement[] => {
+    const { title, color, endTime, startTime, ageInfo, description } = {
+      ...props.plannedBlocks[1],
+    };
     return (
       <>
-        <div
-          style={{
-            gridRowStart: 2,
-            gridRowEnd: 6,
-            gridColumnStart: 2,
-            backgroundColor: "#893F61",
-          }}
+        <Block
+          color={color}
+          startTime={TimeConverter.getTimeAsString(startTime)}
+          endTime={TimeConverter.getTimeAsString(endTime)}
+          gridColumnStart={2}
+          gridRowEnd={6}
+          gridRowStart={2}
+          title={title}
+          ageInfo={ageInfo}
+          description={description}
         />
-        <div
-          className={styles.block}
-          style={{ gridColumnStart: 3, gridRowStart: 2, gridRowEnd: 6 }}
-        >
-          <h1 className={styles.blockTitle}>Anfängertraining</h1>
-          <p className={styles.blockAgeInfo}>(ab 13 Jahren)</p>
-          <p className={styles.blockDescription}> 17:45 - 18:30</p>
-        </div>
       </>
     );
   };

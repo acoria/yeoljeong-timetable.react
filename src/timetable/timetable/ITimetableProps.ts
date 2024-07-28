@@ -2,7 +2,6 @@ import { IPlannedBlock } from "../IPlannedBlocks";
 import { TimetableMode } from "../TimetableMode";
 
 export interface ITimetableProps {
-  // calendarWeek/Date
   timelineIntervalInMinutes: number;
   plannedBlocks: IPlannedBlock[];
   mode: TimetableMode;

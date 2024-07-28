@@ -18,6 +18,10 @@ class TimeConverterDefault {
     return new Date(oldDate.getTime() + minutes * 60000);
   }
 
+  getTimeAsString(date: Date): string {
+    return `${date.getHours()}:${date.getMinutes()}`;
+  }
+
   private sortTimes(dates: Date[]): Date[] {
     return dates.sort((a, b) => {
       if (a.getHours() === b.getHours()) {

@@ -1,0 +1,23 @@
+.block {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.title {
+    font-size: large;
+}
+
+.ageInfo {
+    font-style: italic;
+    margin: 0;
+}
+
+.description {
+    margin: 0;
+}
+
+.time {
+    margin: 0;
+}

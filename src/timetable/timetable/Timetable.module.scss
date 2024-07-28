@@ -10,26 +10,6 @@
     grid-row-start: 1;
 }
 
-.block {
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-}
-
-.blockTitle {
-    font-size: large;
-}
-
-.blockAgeInfo {
-    font-style: italic;
-    margin: 0;
-}
-
-.blockDescription {
-    margin: 0;
-}
-
 .day {
     grid-row-start: 1;
     font-size: medium;

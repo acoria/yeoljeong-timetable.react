@@ -6,6 +6,6 @@ export interface IPlannedBlock extends IBlock, ISignedUp {
   weekday: Weekday;
   startTime: Date;
   endTime: Date;
-  // reoccuring
+  reoccuring?: boolean;
   // teacher
 }
