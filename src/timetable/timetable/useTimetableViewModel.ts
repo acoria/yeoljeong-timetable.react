@@ -6,9 +6,16 @@ import { Weekday } from "../Weekday";
 import { ITimetableProps } from "./ITimetableProps";
 
 export const useTimeTableViewModel = (props: ITimetableProps) => {
-  const plannedWeekdays = PlannedBlockAnalyzer.getPlannedWeekdays(
+  const plannedWeekdaysIndices = PlannedBlockAnalyzer.getPlannedWeekdays(
     props.plannedBlocks
-  ).map((weekday) => Object.values(Weekday)[weekday]);
+  );
+
+  const plannedWeekdays = plannedWeekdaysIndices.map(
+    (weekday) => Object.values(Weekday)[weekday]
+  );
+
+  const positionOfDayInTimetable = (weekday: Weekday) =>
+    plannedWeekdaysIndices.findIndex((item) => item === weekday) + 1;
 
   const timeIntervals: Time[] = PlannedBlockAnalyzer.getTimeIntervals(
     props.plannedBlocks,
@@ -20,15 +27,16 @@ export const useTimeTableViewModel = (props: ITimetableProps) => {
 
   const getBlocks = (): IBlock[] => {
     return props.plannedBlocks.map((plannedBlock) => {
-      return {
+      const block = {
         title: plannedBlock.title,
         ageInfo: plannedBlock.ageInfo,
         description: plannedBlock.description,
         color: plannedBlock.color,
         startTime: TimeConverter.getDateTimeAsString(plannedBlock.startTime),
         endTime: TimeConverter.getDateTimeAsString(plannedBlock.endTime),
-        positionInWeek:
-          +(Object.keys(Weekday)[plannedBlock.weekday] as any as number) + 1,
+        positionOfDayInTimetable: positionOfDayInTimetable(
+          plannedBlock.weekday
+        ),
         startIntervalIndex: PlannedBlockAnalyzer.findPositionInInterval(
           timeIntervals,
           plannedBlock.startTime
@@ -38,6 +46,7 @@ export const useTimeTableViewModel = (props: ITimetableProps) => {
           plannedBlock.endTime
         ),
       };
+      return block;
     });
   };
   const blocks: IBlock[] = getBlocks();

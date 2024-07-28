@@ -16,12 +16,14 @@ class TimeConverterDefault {
   }
 
   addMinutes(oldDate: Date, minutes: number): Date {
-    //turn minutes to milliseconds
+    //turn minutes to milliseconds by multiplying with 60k
     return new Date(oldDate.getTime() + minutes * 60000);
   }
 
   getDateTimeAsString(date: Date): string {
-    return `${date.getHours()}:${date.getMinutes()}`;
+    return `${date.getHours()}:${
+      date.getMinutes() === 0 ? "00" : date.getMinutes()
+    }`;
   }
 
   getTimeAsString(time: Time): string {

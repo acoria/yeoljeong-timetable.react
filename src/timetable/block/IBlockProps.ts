@@ -5,7 +5,8 @@ export interface IBlockProps {
   color: string;
   startTime: string;
   endTime: string;
-  gridColumnStart: number,
-  gridRowStart: number,
-  gridRowEnd: number,
+  gridColumnStart: number;
+  gridRowStart: number;
+  gridRowEnd: number;
+  showLength?: boolean;
 }
