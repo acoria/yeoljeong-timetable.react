@@ -39,8 +39,8 @@ class PlannedBlockAnalyzerDefault implements IPlannedBlockAnalyzer {
   getPlannedWeekdays(plannedBlocks: IPlannedBlock[]): Weekday[] {
     const weekdays: Weekday[] = [];
     plannedBlocks.forEach((block) => {
-      if (weekdays.findIndex((item) => item === block.weekday) === -1) {
-        weekdays.push(block.weekday);
+      if (weekdays.findIndex((item) => item === block.weekdayIndex) === -1) {
+        weekdays.push(block.weekdayIndex);
       }
     });
     return weekdays.sort((a, b) => a - b);
