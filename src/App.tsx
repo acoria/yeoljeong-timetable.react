@@ -44,14 +44,14 @@ function App() {
     //   startTime: new Date(2024, 11, 19, 17, 30),
     //   endTime: new Date(2024, 11, 19, 18, 30),
     // },
-    // {
-    //   title: "Training für Kinder",
-    //   color: "#893F61",
-    //   weekday: Weekday.TUESDAY,
-    //   startTime: new Date(2024, 11, 19, 20),
-    //   endTime: new Date(2024, 11, 19, 21),
-    //   ageInfo: "7 - 12 Jahre",
-    // },
+    {
+      title: "Training für Kinder",
+      color: "#893F61",
+      weekdayIndex: Weekday.TUESDAY,
+      startTime: new Date(2024, 11, 19, 20),
+      endTime: new Date(2024, 11, 19, 21),
+      ageInfo: "7 - 12 Jahre",
+    },
     // {
     //   title: "Training für Kinder",
     //   color: "#36d1b7",
@@ -68,7 +68,6 @@ function App() {
         mode={TimetableMode.READONLY}
         plannedBlocks={plannedBlocks}
         timelineIntervalInMinutes={15}
-        showTimeline
       />
     </div>
   );

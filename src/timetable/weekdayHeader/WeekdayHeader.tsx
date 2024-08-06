@@ -2,9 +2,9 @@ import { IWeekdayHeaderProps } from "./IWeekdayHeaderProps";
 import styles from "./WeekdayHeader.module.scss";
 
 export const WeekdayHeader: React.FC<IWeekdayHeaderProps> = (props) => {
-  const timelineColumn = props.isTimelineShown ? 1 : 0;
   const lengthOfWeekdayBlockWithColor = props.blockColumnSpan + 1;
 
+  const timelineColumn = 1;
   const weekdayGridColumn = (index: number) => {
     const from = index * props.blockColumnSpan + 1 + timelineColumn;
     const to =

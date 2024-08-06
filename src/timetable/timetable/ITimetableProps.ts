@@ -9,5 +9,4 @@ export interface ITimetableProps {
   onBlockSignOut?: (plannedBlock: IPlannedBlock) => void;
   //   onBlockCreate?: (plannedBlock: IPlannedBlock) => void;
   showEmptyDays?: boolean;
-  showTimeline?: boolean;
 }

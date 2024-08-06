@@ -1,11 +1,11 @@
 import { ReactElement } from "react";
 import { Block } from "../block/Block";
+import { IBlock } from "../block/IBlock";
+import { Weekday } from "../Weekday";
+import { WeekdayHeader } from "../weekdayHeader/WeekdayHeader";
 import { ITimetableProps } from "./ITimetableProps";
 import styles from "./Timetable.module.scss";
 import { useTimeTableViewModel } from "./useTimetableViewModel";
-import { WeekdayHeader } from "../weekdayHeader/WeekdayHeader";
-import { IBlock } from "../block/IBlock";
-import { Weekday } from "../Weekday";
 
 export const Timetable: React.FC<ITimetableProps> = (props) => {
   const viewModel = useTimeTableViewModel(props);
@@ -14,10 +14,10 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
   const blockStartRowOffset = 2;
   //the number of grid cells a block occupies
   const blockColumnSpan = 2;
-  const timetableGridTemplateColumns = `${viewModel.showTimeline ? "5%" : ""} ${
+  const timetableGridTemplateColumns = `${
     viewModel.isSmallScreen
-      ? "1% auto"
-      : viewModel.plannedWeekdays.map((_) => "1% auto").join(" ")
+      ? "15% 3% auto"
+      : `5% ${viewModel.plannedWeekdays.map((_) => "1% auto").join(" ")}`
   }`;
 
   const timeline = (): ReactElement | ReactElement[] => {
@@ -36,7 +36,6 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
     viewModel.plannedWeekdays.map((weekday, index) => (
       <WeekdayHeader
         blockColumnSpan={blockColumnSpan}
-        isTimelineShown={viewModel.showTimeline ?? false}
         positionInGrid={index}
         weekday={weekday}
       />
@@ -45,33 +44,31 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
   const weekday = (weekday: string): ReactElement => (
     <WeekdayHeader
       blockColumnSpan={blockColumnSpan}
-      isTimelineShown={viewModel.showTimeline ?? false}
       positionInGrid={viewModel.isSmallScreen ? 0 : 1}
       weekday={weekday}
     />
   );
+
   const allBlocks = (): ReactElement | ReactElement[] => {
-    return viewModel.allBlocks.map((block) => blockElement(block));
+    return viewModel.allBlocks.map((block) => buildBlock(block));
   };
 
   const blocksByWeekday = (weekday: Weekday): ReactElement | ReactElement[] => {
-    return viewModel
-      .blocksByWeekday(weekday)
-      .map((block) => blockElement(block));
+    return viewModel.blocksByWeekday(weekday).map((block) => buildBlock(block));
   };
 
-  const blockElement = (block: IBlock): ReactElement => (
+  const buildBlock = (block: IBlock): ReactElement => (
     <Block
       color={block.color}
       startTime={block.startTime}
       endTime={block.endTime}
       gridColumnStart={
         viewModel.isSmallScreen
-          ? block.positionOfDayInTimetable
-          : block.positionOfDayInTimetable * blockColumnSpan
+          ? block.xPositionOfDayInTimetable
+          : block.xPositionOfDayInTimetable * blockColumnSpan
       }
-      gridRowStart={block.startIntervalIndex + blockStartRowOffset}
-      gridRowEnd={block.endIntervalIndex + blockStartRowOffset}
+      gridRowStart={block.startTimeIntervalIndex + blockStartRowOffset}
+      gridRowEnd={block.endTimeIntervalIndex + blockStartRowOffset}
       title={block.title}
       ageInfo={block.ageInfo}
       description={block.description}
@@ -85,24 +82,27 @@ export const Timetable: React.FC<ITimetableProps> = (props) => {
           className={styles.timetable}
           style={{ gridTemplateColumns: timetableGridTemplateColumns }}
         >
-          {viewModel.showTimeline && <div className={styles.leftTop}></div>}
-          {viewModel.showTimeline && timeline()}
+          <div className={styles.leftTop}></div>
+          {timeline()}
           {weekdays()}
           {allBlocks()}
         </div>
       )}
-      {viewModel.isSmallScreen &&
-        viewModel.plannedWeekdays.map((plannedWeekday) => (
-          <div
-            className={styles.timetable}
-            style={{ gridTemplateColumns: timetableGridTemplateColumns }}
-          >
-            {viewModel.showTimeline && <div className={styles.leftTop}></div>}
-            {viewModel.showTimeline && timeline()}
-            {weekday(plannedWeekday)}
-            {blocksByWeekday(plannedWeekday as any as Weekday)}
-          </div>
-        ))}
+      {viewModel.isSmallScreen && (
+        <div className={styles.singleTimetables}>
+          {viewModel.plannedWeekdays.map((plannedWeekday) => (
+            <div
+              className={styles.timetable}
+              style={{ gridTemplateColumns: timetableGridTemplateColumns }}
+            >
+              <div className={styles.leftTop}></div>
+              {timeline()}
+              {weekday(plannedWeekday)}
+              {blocksByWeekday(plannedWeekday as any as Weekday)}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

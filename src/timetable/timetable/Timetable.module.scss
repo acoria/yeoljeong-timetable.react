@@ -1,9 +1,16 @@
+.singleTimetables {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
 .timetable {
     border: 1px solid black;
     display: grid;
-    // column-gap: 1rem;
+    column-gap: 1rem;
     grid-auto-rows: 2rem;
 }
+
 
 .leftTop {
     grid-column-start: 1;
